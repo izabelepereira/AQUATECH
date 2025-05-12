@@ -1,123 +1,136 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="../css/navbar.css" />
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
-<style>
-  @font-face {
-    font-family: 'Agrandir Regular';
-    src: url('../fonts/agrandir-regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
+<html lang="pt-BR">
 
-  .agrandir {
-    font-family: 'Agrandir Regular', sans-serif;
-  }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aquatech - Navbar com Acessibilidade</title>
 
-  @font-face {
-    font-family: 'Glacial Indifference';
-    src: url('../fonts/GlacialIndifference-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
 
-  .glacial {
-    font-family: 'Glacial Indifference', sans-serif;
-  }
+  <style>
+    @font-face {
+      font-family: 'Agrandir Regular';
+      src: url('../fonts/agrandir-regular.otf') format('opentype');
+    }
 
-  @font-face {
-    font-family: 'CodecColdRegular';
-    src: url('../fonts/Codec-Cold-Regular-trial.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('../fonts/GlacialIndifference-Regular.otf') format('opentype');
+    }
 
-  .codec-cold-regular {
-    font-family: 'CodecColdRegular', sans-serif;
-  }
-</style>
+    @font-face {
+      font-family: 'CodecColdRegular';
+      src: url('../fonts/Codec-Cold-Regular-trial.ttf') format('truetype');
+    }
 
-<div class="navbar" id="navbar">
-  <div class="logo">
-    <img src="../imagens/✧ (1).png" alt="Logo Aquatech" class="logo-img">
+    .agrandir {
+      font-family: 'Agrandir Regular', sans-serif;
+    }
+
+    .glacial {
+      font-family: 'Glacial Indifference', sans-serif;
+    }
+
+    .codec-cold-regular {
+      font-family: 'CodecColdRegular', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar" id="navbar">
+    <div class="logo">
+      <img src="../imagens/logobl.png" alt="Logo Aquatech" class="logo-img">
+    </div>
+    <div class="links">
+      <a href="#">Sobre Nós</a>
+      <a href="#">Recursos</a>
+      <a href="#">Soluções</a>
+    </div>
+    <div class="ajuda">
+      <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
+        Ajuda <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
+      </a>
+    </div>
   </div>
-  <div class="links">
-    <a href="#"> Sobre Nós</a>
-    <a href="#">Recursos</a>
-    <a href="#">Soluções</a>
-  </div>
-  <div class="ajuda">
-    <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
-      Ajuda
-      <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
-    </a>
-  </div>
-</div>
 
-<button class="navbar-toggler" type="button" onclick="toggleMenu()">
-  <i class="bi bi-list" id="menuIcon" style="font-size: 1.5rem;"></i>
-</button>
+  <button class="navbar-toggler" type="button" onclick="toggleMenu()">
+    <i class="bi bi-list" id="menuIcon" style="font-size: 1.5rem;  z-index: 9999 !important;"></i>
+  </button>
 
-<div class="modal" id="modalAcessibilidade">
-  <div class="modal-blur"></div>
-  <div class="modal-content">
-    <h2>
-      <strong>Ajustes de Acessibilidade</strong>
-      <button class="modal-close" onclick="fecharModal()" title="Fechar">
-        <i class="bi bi-x-lg"></i>
-      </button>
-    </h2>
-    <p>Melhore sua experiência no site.</p>
+  <div class="modal" id="modalAcessibilidade">
+    <div class="modal-blur"></div>
+    <div class="modal-content">
+      <h2>
+        <strong>Ajustes de Acessibilidade</strong>
+        <button class="modal-close" onclick="fecharModal()" title="Fechar">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </h2>
+      <p>Melhore sua experiência no site.</p>
 
-    <div class="acessibility-grid">
-      <div class="acessibility-option">
-        <p class="opcao-titulo">Tamanho do Texto</p>
-        <div class="font-size-controls">
-          <button onclick="alterarFonte(true)" id="aumento">A +</button>
-          <button onclick="alterarFonte(false)" id="diminuir">a -</button>
+      <div class="acessibility-grid">
+        <div class="acessibility-option">
+          <p class="opcao-titulo">Tamanho do Texto</p>
+          <div class="font-size-controls">
+            <button onclick="alterarFonte(true)" id="aumento">A +</button>
+            <button onclick="alterarFonte(false)" id="diminuir">a -</button>
+          </div>
+        </div>
+
+        <div class="acessibility-option" onclick="ativarContraste()">
+          <p class="opcao-titulo">Modo Contraste</p>
+          <i class="bi bi-eye"></i>
+        </div>
+
+        <div class="acessibility-option" onclick="lerTexto()">
+          <p class="opcao-titulo">Ouvir Texto</p>
+          <i class="bi bi-ear"></i>
+        </div>
+
+        <div class="acessibility-option" onclick="abrirVLibras()">
+          <p class="opcao-titulo">Traduzir para Libras</p>
+          <img src="../imagens/libras.svg" alt="Ícone de Libras" style="width: 82px; height: 82px;" />
         </div>
       </div>
 
-      <div class="acessibility-option" onclick="ativarContraste()">
-        <p class="opcao-titulo">Modo Contraste</p>
-        <i class="bi bi-eye"></i>
-      </div>
-
-      <div class="acessibility-option" onclick="lerTexto()">
-        <p class="opcao-titulo">Ouvir Texto</p>
-        <i class="bi bi-ear"></i>
-      </div>
-
-      <div class="acessibility-option" onclick="abrirVLibras()">
-        <p class="opcao-titulo">Traduzir para Libras</p>
-        <img src="../imagens/libras.svg" alt="Ícone de Libras" style="width: 82px; height: 82px;" />
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="cancelarMudancas()">Cancelar</button>
+        <button class="save-btn" onclick="salvarMudancas()">Salvar mudanças</button>
       </div>
     </div>
+  </div>
 
-    <div class="modal-buttons">
-      <button class="cancel-btn" onclick="cancelarMudancas()">Cancelar</button>
-      <button class="save-btn" onclick="salvarMudancas()">Salvar mudanças</button>
+  <div class="menu-lateral" id="menuLateral">
+    <a href="#">Sobre Nós</a>
+    <a href="#">Recursos</a>
+    <a href="#">Soluções</a>
+    <div class="ajuda">
+      <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
+        Ajuda <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
+      </a>
     </div>
   </div>
-</div>
 
-
-<div class="menu-lateral" id="menuLateral">
-  <a href="#">Sobre Nós</a>
-  <a href="#">Recursos</a>
-  <a href="#">Soluções</a>
-  <div class="ajuda">
-    <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
-      Ajuda
-      <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
-    </a>
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
   </div>
 
-
+  <!-- Scripts -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+
     const modal = document.getElementById("modalAcessibilidade");
     const abrirBotoes = document.querySelectorAll(".abrir-modal");
     const modalBlur = modal.querySelector(".modal-blur");
@@ -125,15 +138,12 @@
     let tamanhoFonteAtual = 16;
     let tamanhoFonteAnterior = 16;
     let contrasteAtivoAnterior = false;
-    let alteracoesPendentes = false; // Nova flag para controle
+    let alteracoesPendentes = false;
 
-    // Abrir modal e salvar estado atual
     abrirBotoes.forEach(botao => {
       botao.addEventListener("click", (e) => {
         e.preventDefault();
         modal.classList.add("show");
-
-        // Salva o estado atual ao abrir o modal
         tamanhoFonteAnterior = tamanhoFonteAtual;
         contrasteAtivoAnterior = document.body.classList.contains("high-contrast");
         alteracoesPendentes = false;
@@ -148,11 +158,8 @@
       modal.classList.remove("show");
     }
 
-    // Impede fechar clicando fora do modal se houver alterações
     window.onclick = function (event) {
-      if (event.target === modal) {
-        fecharModal();
-      }
+      if (event.target === modal) fecharModal();
     };
 
     function salvarMudancas() {
@@ -160,50 +167,27 @@
       tamanhoFonteAnterior = tamanhoFonteAtual;
       alteracoesPendentes = false;
       modal.classList.remove("show");
-      console.log("Mudanças salvas.");
     }
 
     function cancelarMudancas() {
-  // Reverte contraste
-  if (contrasteAtivoAnterior) {
-    document.body.classList.add("high-contrast");
-  } else {
-    document.body.classList.remove("high-contrast");
-  }
-
-  // Reverte tamanho da fonte
-  tamanhoFonteAtual = tamanhoFonteAnterior;
-  document.querySelectorAll("body *:not(#modalAcessibilidade *):not(#modalAcessibilidade)").forEach(el => {
-    el.style.fontSize = tamanhoFonteAtual + "px";
-  });
-
-  // Interrompe leitura de voz
-  speechSynthesis.cancel();
-
-  // Tenta desativar o VLibras (simulando clique no botão de acessibilidade, se estiver ativo)
-  const btnVLibras = document.querySelector('[vw-access-button]');
-  if (btnVLibras?.classList.contains('active')) {
-    btnVLibras.click(); // Esconde o plugin se estiver aberto
-  }
-
-  alteracoesPendentes = false;
-  modal.classList.remove("show");
-  console.log("Mudanças canceladas.");
-}
+      document.body.classList.toggle("high-contrast", contrasteAtivoAnterior);
+      tamanhoFonteAtual = tamanhoFonteAnterior;
+      document.querySelectorAll("body *:not(#modalAcessibilidade *):not(#modalAcessibilidade)").forEach(el => {
+        el.style.fontSize = tamanhoFonteAtual + "px";
+      });
+      speechSynthesis.cancel();
+      alteracoesPendentes = false;
+      modal.classList.remove("show");
+    }
 
     function alterarFonte(aumentar = true) {
-      const passo = 2;
-      const minimo = 10;
-      const maximo = 25;
-
+      const passo = 2, minimo = 10, maximo = 25;
       const novaFonte = tamanhoFonteAtual + (aumentar ? passo : -passo);
       if (novaFonte < minimo || novaFonte > maximo) return;
-
       tamanhoFonteAtual = novaFonte;
       document.querySelectorAll("body *:not(#modalAcessibilidade *):not(#modalAcessibilidade)").forEach(el => {
         el.style.fontSize = tamanhoFonteAtual + "px";
       });
-
       alteracoesPendentes = true;
       animarModal();
     }
@@ -215,19 +199,15 @@
 
     function lerTexto() {
       const texto = document.getElementById("main-content")?.innerText || document.body.innerText;
-      const textoFiltrado = texto.replace(/\s+/g, ' ').trim();
-      const utterance = new SpeechSynthesisUtterance(textoFiltrado);
+      const utterance = new SpeechSynthesisUtterance(texto.replace(/\s+/g, ' ').trim());
       utterance.lang = "pt-BR";
       speechSynthesis.speak(utterance);
     }
 
     function abrirVLibras() {
       const btnVLibras = document.querySelector('[vw-access-button]');
-      if (btnVLibras) {
-        btnVLibras.click();
-      } else {
-        alert("VLibras não foi carregado corretamente.");
-      }
+      if (btnVLibras) btnVLibras.click();
+      else alert("VLibras não foi carregado corretamente.");
     }
 
     function animarModal() {
@@ -239,33 +219,17 @@
       }, 300);
     }
 
-    // Menu lateral
     function toggleMenu() {
-      const menuLateral = document.getElementById('menuLateral');
-      const menuIcon = document.getElementById('menuIcon');
-      menuLateral.classList.toggle('open');
-      menuIcon.classList.toggle('open');
+      document.getElementById('menuLateral').classList.toggle('open');
+      document.getElementById('menuIcon').classList.toggle('open');
     }
 
-    // Navbar toggle
-    const links = document.querySelector('.links');
     document.getElementById('navbar').addEventListener('click', (event) => {
       if (!event.target.closest('a')) {
-        links.classList.toggle('active');
+        document.querySelector('.links').classList.toggle('active');
       }
     });
   </script>
+</body>
 
-
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</html>
