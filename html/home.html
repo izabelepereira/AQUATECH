@@ -1,48 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aquatech</title>
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="../css/home.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
+
 <body>
   <div id="navbar-container"></div>
-<script>
-  fetch("./components/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar-container").innerHTML = data;
-    });
-</script>
-
+  <script>
+    fetch("./components/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-container").innerHTML = data;
+      });
+  </script>
 
   <main>
     <section class="hero-banner">
       <img src="../imagens/home.png" alt="Imagem Hero" class="hero-image" />
       <a href="#" class="botao">Junte-se à mudança ↗</a>
-    </section>    
+    </section>
 
     <section class="servicos">
-      <h2>Tecnologia a serviço da água</h2>
-      <div class="cards">
-        <div class="card">
-          <p>Você insere e acompanha seu consumo.</p>
-          <i class="bi bi-droplet"></i>
-        </div>
-        <div class="card">
-          <p>Sugestões práticas para evitar excessos.</p>
-          <i class="bi bi-gear-fill"></i>
-        </div>
-        <div class="card">
-          <p>Geramos dados claros sobre seus hábitos.</p>
-          <i class="bi bi-bar-chart-line-fill"></i>
+      <div class="servicos-header">
+        <button disabled class="servicos-btn">Tecnologia a serviço da água</button>
+      </div>
+      <div class="cards-container">
+        <div class="cards">
+          <div class="card">
+            <p>Você insere e acompanha seu consumo.</p>
+            <i class="bi bi-droplet"></i>
+          </div>
+          <div class="card">
+            <p>Sugestões práticas para evitar excessos.</p>
+            <i class="bi bi-gear-fill"></i>
+          </div>
+          <div class="card">
+            <p>Geramos dados claros sobre seus hábitos.</p>
+            <i class="bi bi-bar-chart-line-fill"></i>
+          </div>
         </div>
       </div>
     </section>
+
+    <hr class="linha-separadora">
+
+    <section class="carrossel-area">
+      <h2 class="carrossel-titulo">CADA GOTA CONTA!</h2>
+      <p class="carrossel-subtitulo">Siga nossas dicas para melhorar seu consumo diário.</p>
+
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="../imagens/img1.jpg" alt="Projeto 1"></div>
+          <div class="swiper-slide"><img src="../imagens/img2.jpg" alt="Projeto 2"></div>
+          <div class="swiper-slide"><img src="../imagens/img3.jpg" alt="Projeto 3"></div>
+        </div>
+
+        <!-- Setas de navegação -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- Bolinhas de paginação -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <div class="carrossel-texto">
+      <h3>Seguindo as dicas acima, seu consumo será eficiente e econômico.
+      </h3>
+      <p>
+        Venha medir seu consumo conosco! Mas antes, não esqueça de conhecer melhor a nossa empresa e entender como
+        ajudamos você a fazer a diferença no uso consciente da água.
+      </p>
+    </div>
   </main>
+
+  <!-- Scripts Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
 </body>
+
 </html>

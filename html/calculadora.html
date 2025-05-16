@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aquatech</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../css/calcul.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        fetch("./components/navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar-container").innerHTML = data;
+            });
+    </script>
+    <main>
+        <section class="hero-banner">
+            <div class="conteudo-banner">
+                <img src="../imagens/calcu.png" alt="Imagem Hero" class="hero-image" />
+                <a href="#" class="botao">Junte-se à mudança ↗</a>
+            </div>
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

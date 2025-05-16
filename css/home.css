@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #f2f7fc;
+  background: #ffffff;
   color: #1a1a1a;
 }
 
@@ -78,25 +78,63 @@ nav .acessibilidade {
   background-color: #82c9f5;
 }
 
-
-
-
-/* SERVIÇOS */
 .servicos {
-  text-align: center;
-  margin: 3rem 2rem;
+  max-width: 1200px;
+  margin-top: -0.9rem;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  margin-left: auto;
+  padding: 3rem 2rem 2rem 2rem;
+  background: #fff;
+  border-radius: 3rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  /* sombra maior e mais espalhada */
 }
 
-.servicos h2 {
-  background: #e6f2ff;
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #003366;
+.servicos-header {
+  position: relative;
+  top: -5rem;
+  padding: 1rem 2rem;
   margin-bottom: 2rem;
+  background-color: #fff;
+  border-radius: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 70%;
+  /* maior largura */
+  margin-left: auto;
+  /* empurra para direita */
+  margin-right: -2rem;
+  /* um espaçamento da borda direita */
 }
+
+/* botão dentro da servicos-header, sem sair pra cima */
+.servicos-btn {
+  background: linear-gradient(90deg, #3ebaff 0%, #0b5498 50%, #3ebaff 100%);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #fff;
+  /* texto branco para contraste */
+  cursor: default;
+  user-select: none;
+  position: relative;
+  font-family: 'Poppins';
+  width: 100%;
+}
+
+.servicos-btn:disabled {
+  opacity: 1;
+}
+
+.cards-container {
+  margin-top: -6rem;
+  /* espaço para não sobrepor o h2 */
+}
+
 
 .cards {
   display: flex;
@@ -121,4 +159,128 @@ nav .acessibilidade {
   display: block;
   margin-top: 1rem;
   color: #0077cc;
+}
+
+.linha-separadora {
+  width: 25%;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  margin-left: 8rem;
+  /* alinhamento à esquerda */
+  margin-right: 0;
+  border: none;
+  height: 2px;
+  background: #0b5498;
+  border-radius: 10rem;
+}
+
+
+.carrossel-area {
+  text-align: center;
+  padding: 1rem 2rem 4rem 2rem;
+}
+
+.carrossel-titulo {
+  font-family: 'Poppins';
+  font-size: 1.5rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700 !important;
+}
+
+.carrossel-subtitulo {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.carrossel-container {
+  position: relative;
+  max-width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carrossel {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carrossel img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+.carrossel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffffffcc;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.2rem 1rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.carrossel-btn.left {
+  left: 0.5rem;
+}
+
+.carrossel-btn.right {
+  right: 0.5rem;
+}
+
+.swiper {
+  width: 100%;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.swiper-slide img {
+  width: 100%;
+  border-radius: 1rem;
+  height: auto;
+  object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+  background: #0b5498;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #0b5498;
+}
+
+.carrossel-texto {
+  margin-top: 2rem;
+  font-family: 'Inter';
+  color: #333;
+  text-align: center;
+  /* Centraliza o texto */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centraliza o bloco */
+}
+
+.carrossel-texto h3 {
+  font-size: 1.6rem;
+  color: #0b5498;
+  margin-bottom: 0.5rem;
+}
+
+.carrossel-texto p {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 800px;
 }
