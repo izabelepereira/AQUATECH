@@ -16,7 +16,7 @@ header {
   align-items: center;
   padding: 1.5rem 2rem;
   background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
@@ -48,9 +48,12 @@ nav .acessibilidade {
 }
 
 .hero-banner .hero-image {
-  width: 80%; /* Faz a imagem ocupar toda a largura */
-  height: 90%; /* Ajusta a altura automaticamente para manter a proporção */
-  object-fit: contain; /* Garante que a imagem seja exibida sem distorções */
+  width: 80%;
+  /* Faz a imagem ocupar toda a largura */
+  height: 90%;
+  /* Ajusta a altura automaticamente para manter a proporção */
+  object-fit: contain;
+  /* Garante que a imagem seja exibida sem distorções */
   border-radius: 30px;
 }
 
@@ -60,17 +63,22 @@ nav .acessibilidade {
   padding: 0.9rem 2rem;
   border-radius: 50px;
   text-decoration: none;
-  font-weight: bold;
   font-size: 1rem;
   transition: background 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  position: absolute; /* Posiciona o botão sobre a imagem */
+  position: absolute;
   z-index: 1;
+  left: 13%;
+  top: 54%;
+  transform: translateY(-50%);
+  font-family: 'Poppins';
 }
 
 .hero-banner .botao:hover {
   background-color: #82c9f5;
 }
+
+
 
 
 /* SERVIÇOS */
@@ -104,7 +112,7 @@ nav .acessibilidade {
   padding: 1.5rem;
   max-width: 280px;
   width: 100%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
