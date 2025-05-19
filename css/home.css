@@ -246,7 +246,7 @@ nav .acessibilidade {
 }
 
 .swiper-slide img {
-  width: 100%;
+  width: 50%;
   border-radius: 1rem;
   height: auto;
   object-fit: cover;

@@ -13,8 +13,6 @@
         .hidden {
             display: none;
         }
-
-
     </style>
 </head>
 
@@ -25,7 +23,20 @@
             .then(res => res.text())
             .then(data => {
                 document.getElementById("navbar-container").innerHTML = data;
+                inicializarModalNavbar(); // função que liga os eventos do modal
             });
+
+        function inicializarModalNavbar() {
+            const modal = document.getElementById("modalAcessibilidade");
+            const abrirBotoes = document.querySelectorAll(".abrir-modal");
+            abrirBotoes.forEach(botao => {
+                botao.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    modal.classList.add("show");
+                });
+            });
+            // Adicione os outros listeners do modal aqui...
+        }
     </script>
     <main>
         <section class="hero-banner">
@@ -118,24 +129,28 @@
                 </div>
 
                 <div class="campo">
-                    <label>Lava o carro?</label><br />
-                    <div class="radio-group">
+                    <!-- Container horizontal para label + select -->
+                    <div class="label-select-container">
+                        <label>Lava o carro?</label>
+                        <div id="metodoCarroContainer" class="hidden">
+                            <label>Método</label>
+                            <select id="metodoCarro">
+                                <label>Método</label>
+                                <option value="mangueira">Mangueira</option>
+                                <option value="balde">Balde</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Radios embaixo -->
+                    <div class="radio-group" style="margin-top: 0.5rem;">
                         <label><input type="radio" name="lavaCarro" value="sim" onclick="mostrarCarro(true)" />
                             Sim</label>
                         <label><input type="radio" name="lavaCarro" value="nao" onclick="mostrarCarro(false)" />
                             Não</label>
                     </div>
-
-                    <div id="metodoCarroContainer" class="hidden">
-                        <label>Método:</label>
-                        <select id="metodoCarro">
-                            <option value="mangueira">Mangueira</option>
-                            <option value="balde">Balde</option>
-                        </select>
-                    </div>
                 </div>
             </div>
-
             <!-- Linha 3: Tempo de banho + Quantas vezes lava louça -->
             <div class="linha">
                 <div class="campo">
@@ -154,7 +169,7 @@
             <!-- Linha 4: Botão -->
             <div class="linha">
                 <div class="campo" style="flex: 1; text-align: right;">
-                    <button onclick="calcular()" style="margin-top: 30px;">CALCULAR</button>
+                    <button onclick="calcular()" style="margin-top: 30px; ">CALCULAR</button>
                 </div>
             </div>
         </div>
@@ -192,15 +207,75 @@
             }
 
             function calcular() {
-                const banho = Number(document.getElementById('tempoBanho').value);
-                const escovar = Number(document.getElementById('tempoEscovar').value);
-                const descargas = Number(document.getElementById('descargas').value) || 0;
-                const vezesLouca = Number(document.getElementById('vezesLouca').value) || 0;
+                // VALIDAÇÕES INICIO
+                if (!pessoas || pessoas < 1) {
+                    alert("Por favor, selecione o número de pessoas.");
+                    return;
+                }
 
-                const lavaLouca = document.querySelector('input[name="lavaLouca"]:checked')?.value === 'sim';
+                const banhoInput = document.getElementById('tempoBanho');
+                if (!banhoInput.value || Number(banhoInput.value) < 1) {
+                    alert("Por favor, informe o tempo do banho.");
+                    return;
+                }
+
+                const escovarInput = document.getElementById('tempoEscovar');
+                if (escovarInput && (!escovarInput.value || Number(escovarInput.value) < 0)) {
+                    alert("Por favor, informe o tempo de escovação.");
+                    return;
+                }
+
+                const descargasInput = document.getElementById('descargas');
+                if (!descargasInput.value || Number(descargasInput.value) < 0) {
+                    alert("Por favor, informe o número de descargas.");
+                    return;
+                }
+
+                const lavaLoucaChecked = document.querySelector('input[name="lavaLouca"]:checked');
+                if (!lavaLoucaChecked) {
+                    alert("Por favor, selecione se lava louça.");
+                    return;
+                }
+
+                if (lavaLoucaChecked.value === 'sim') {
+                    const tempoLoucaInput = document.getElementById('tempoLouca');
+                    if (!tempoLoucaInput.value || Number(tempoLoucaInput.value) < 1) {
+                        alert("Por favor, informe o tempo lavando louça.");
+                        return;
+                    }
+                }
+
+                const vezesLoucaInput = document.getElementById('vezesLouca');
+                if (!vezesLoucaInput.value || Number(vezesLoucaInput.value) < 0) {
+                    alert("Por favor, informe quantas vezes lava louça.");
+                    return;
+                }
+
+                const lavaCarroChecked = document.querySelector('input[name="lavaCarro"]:checked');
+                if (!lavaCarroChecked) {
+                    alert("Por favor, selecione se lava carro.");
+                    return;
+                }
+
+                if (lavaCarroChecked.value === 'sim') {
+                    const metodoCarroSelect = document.getElementById('metodoCarro');
+                    if (!metodoCarroSelect.value) {
+                        alert("Por favor, selecione o método de lavar carro.");
+                        return;
+                    }
+                }
+                // VALIDAÇÕES FIM
+
+                // SE CHEGOU AQUI, TODOS OS CAMPOS ESTÃO VÁLIDOS
+                const banho = Number(document.getElementById('tempoBanho').value);
+                const escovar = escovarInput ? Number(escovarInput.value) : 0;
+                const descargas = Number(descargasInput.value);
+                const vezesLouca = Number(vezesLoucaInput.value);
+
+                const lavaLouca = lavaLoucaChecked.value === 'sim';
                 const tempoLouca = lavaLouca ? Number(document.getElementById('tempoLouca').value) : 0;
 
-                const lavaCarro = document.querySelector('input[name="lavaCarro"]:checked')?.value === 'sim';
+                const lavaCarro = lavaCarroChecked.value === 'sim';
                 const metodoCarro = lavaCarro ? document.getElementById('metodoCarro').value : '';
 
                 let consumo = 0;
@@ -229,9 +304,9 @@
                 if (!r) return;
 
                 document.getElementById('resultadoFinal').innerHTML = `
-          <h3>SEU CONSUMO ESTIMADO</h3>
-          <p>Você consome aproximadamente: <strong>${r.consumo.toLocaleString()} litros por mês</strong></p>
-          <p><em>Tipo de consumo: ${r.tipo}</em></p>
+            <h3>SEU CONSUMO ESTIMADO</h3>
+            <p>Você consome aproximadamente: <strong>${r.consumo.toLocaleString()} litros por mês</strong></p>
+            <p><em>Tipo de consumo: ${r.tipo}</em></p>
         `;
                 document.getElementById('resultadoFinal').classList.remove('hidden');
             }
@@ -244,6 +319,90 @@
                 }
             });
         </script>
+        <div class="container-planejando">
+            <div class="planejando">
+                <div class="planejando-container">
+                    <div class="text-box-2">
+                        <h1>PLANEJANDO HOJE,<br>IMPACTANDO O AMANHÃ</h1>
+                        <p>A Aquatech oferece soluções inteligentes, reduz desperdícios e promove conscientização
+                            ambiental por meio de pilares estratégicos:
+                        </p>
+                        <div class="checkboxes">
+                            <div class="item">
+                                <i class="fa-solid fa-check"></i>
+                                <p>Contribuir para um futuro mais responsável</p>
+                            </div>
+                            <div class="item">
+                                <i class="fa-solid fa-check"></i>
+                                <p>Promover o uso de tecnologias sustentáveis</p>
+                            </div>
+                            <div class="item">
+                                <i class="fa-solid fa-check"></i>
+                                <p>Impulsionar a transformação do setor hídrico</p>
+                            </div>
+                            <div class="item">
+                                <i class="fa-solid fa-check"></i>
+                                <p>Garantir equilíbrio no uso dos recursos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-box-3">
+                        <img src="../img/usina.png" alt="quemsomosimg" / class="usina">
+                        <div class="image-sobreposicao">
+                            <img src="../img/worker2.png" alt="secimg" class="trabalhador">
+                        </div>
+                        <p class="text-medicao">
+                            Quer saber se está gastando demais? Faça a medição agora mesmo!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="rounded-box">
+            <a href="#" class="none">
+                <p>Medir meu consumo <i class="fa-solid fa-arrow-trend-up"></i></p>
+            </a>
+        </button>
+        <hr class="linha-3">
+        <div class="fazer-login">
+            <p>Entre agora e transforme o futuro <br> da água com a gente!</p>
+            <button class="login-btn">
+                <a href="login.html" class="none">
+                    <p>Fazer login</p>
+                </a>
+            </button>
+        </div>
+        <hr id="linha-3">
+        <div class="sustentabilidade">
+            <div class="texto">
+                <h1>
+                    Sustentabilidade que se adapta,<br>
+                    tecnologia que evolui.
+                </h1>
+                <p>2025, Aquatech.</p>
+            </div>
+            <div class="linha-e-links">
+                <div class="linha-vertical"></div>
+                <div class="menu-links">
+                    <p class="titulo-menu">Conheça a Plataforma</p>
+                    <a href="#">Home</a>
+                    <a href="#">Quem somos</a>
+                    <a href="#">Recursos</a>
+                    <a href="#">Soluções</a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="social-media">
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-facebook"></i>
+            </div>
+            <img src="../img/logo_aquatech.png" alt="logo_aquatech" class="logo">
+            <p class="copyright">© 2025 Aquatech.</p>
+        </footer>
+        </div>
+
     </main>
 </body>
 
