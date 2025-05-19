@@ -175,14 +175,41 @@
         </div>
 
 
-        <div id="overlay" class="hidden"></div>
         <div id="modalResultado" class="modal hidden">
-            <h3>Seu resultado de Consumo:</h3>
-            <p>Você consome aproximadamente:</p>
-            <p><strong id="resultadoModal">0 litros por mês</strong></p>
-            <p><em id="tipoConsumo">Tipo de consumo: moderado</em></p>
-            <button onclick="fecharModal()">Fechar</button>
+
+            <!-- Header azul com ícone -->
+            <div class="modal-header-custom">
+                <img src="../imagens/globo.png" alt="Ícone do globo" class="modal-icon-img">
+            </div>
+
+            <!-- Botão de fechar -->
+            <button class="modal-close" onclick="fecharModal()">
+                <i class="bi bi-x"></i>
+            </button>
+
+            <!-- Conteúdo principal -->
+            <div class="modal-body">
+                <h3>Seu resultado de Consumo:</h3>
+                <p class="descricao" style="text-align: left;">Veja sua estimativa mensal com base nas suas respostas.</p>
+                <p class="descricao" style="font-weight: bold;">Você consome aproximadamente:</p>
+                <p class="valor">
+                    <i class="bi bi-droplet-half"></i>
+                    <strong id="resultadoModal">0 litros por mês</strong>
+                </p>
+                <p id="tipoConsumo">
+  <span style="font-weight: bold;">Tipo de consumo:</span>
+  <span id="nivelConsumo">moderado.</span>
+</p>
+                <div class="modal-buttons">
+                    <button class="btn gerar-pdf">Gerar PDF</button>
+                    <button class="btn refazer" onclick="fecharModal()">Refazer cálculo</button>
+                </div>
+            </div>
         </div>
+
+        <div id="overlay" class="overlay hidden"></div>
+
+
 
         <div class="resultado hidden" id="resultadoFinal"></div>
 
@@ -286,9 +313,9 @@
                 if (lavaCarro && metodoCarro === 'mangueira') consumo += 500;
                 else if (lavaCarro && metodoCarro === 'balde') consumo += 100;
 
-                const tipo = consumo < 5000 ? 'baixo' : consumo < 10000 ? 'moderado' : 'alto';
+                const tipo = consumo < 5000 ? 'baixo' : consumo < 10000 ? 'moderado.' : 'alto.';
 
-                document.getElementById('resultadoModal').innerText = consumo.toLocaleString() + ' litros por mês';
+                document.getElementById('resultadoModal').innerText = consumo.toLocaleString() + ' litros por mês.';
                 document.getElementById('tipoConsumo').innerText = 'Tipo de consumo: ' + tipo;
                 document.getElementById('modalResultado').classList.remove('hidden');
                 document.getElementById('overlay').classList.remove('hidden');
