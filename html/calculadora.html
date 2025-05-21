@@ -7,7 +7,8 @@
     <title>Aquatech</title>
     <link rel="stylesheet" href="../css/calcul.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet" />
     <style>
         .hidden {
@@ -88,7 +89,9 @@
                 <p>Veja como atitudes simples afetam seu consumo mensal.</p>
             </div>
         </section>
-        <div class="form-group" id="formulario">
+
+
+        <div class="form-group" id="formulario" style="font-family: 'Alata', sans-serif;">
 
             <!-- Linha 1: Pessoas + Lava louça com torneira -->
             <div class="linha">
@@ -106,10 +109,16 @@
                 <div class="campo">
                     <label>Lava louça com torneira aberta?</label><br />
                     <div class="radio-group">
-                        <label><input type="radio" name="lavaLouca" value="sim" onclick="mostrarLouca(true)" />
-                            Sim</label>
-                        <label><input type="radio" name="lavaLouca" value="nao" onclick="mostrarLouca(false)" />
-                            Não</label>
+                        <label class="radio-wrapper">
+                            <input type="radio" name="lavaLouca" value="sim" onclick="mostrarLouca(true)" />
+                            <span class="custom-radio"><i class="bi bi-check"></i></span>
+                            <span>Sim</span>
+                        </label>
+                        <label class="radio-wrapper">
+                            <input type="radio" name="lavaLouca" value="nao" onclick="mostrarLouca(false)" />
+                            <span class="custom-radio"><i class="bi bi-check"></i></span>
+                            <span>Não</span>
+                        </label>
                     </div>
 
                     <div id="tempoLoucaContainer" class="hidden">
@@ -129,35 +138,46 @@
                 </div>
 
                 <div class="campo">
-                    <!-- Container horizontal para label + select -->
                     <div class="label-select-container">
                         <label>Lava o carro?</label>
                         <div id="metodoCarroContainer" class="hidden">
-                            <label>Método</label>
+                            <label>Método:</label>
                             <select id="metodoCarro">
-                                <label>Método</label>
                                 <option value="mangueira">Mangueira</option>
                                 <option value="balde">Balde</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Radios embaixo -->
                     <div class="radio-group" style="margin-top: 0.5rem;">
-                        <label><input type="radio" name="lavaCarro" value="sim" onclick="mostrarCarro(true)" />
-                            Sim</label>
-                        <label><input type="radio" name="lavaCarro" value="nao" onclick="mostrarCarro(false)" />
-                            Não</label>
+                        <label class="radio-wrapper">
+                            <input type="radio" name="lavaCarro" value="sim" onclick="mostrarCarro(true)" />
+                            <span class="custom-radio"><i class="bi bi-check"></i></span>
+                            <span>Sim</span>
+                        </label>
+                        <label class="radio-wrapper">
+                            <input type="radio" name="lavaCarro" value="nao" onclick="mostrarCarro(false)" />
+                            <span class="custom-radio"><i class="bi bi-check"></i></span>
+                            <span>Não</span>
+                        </label>
                     </div>
                 </div>
             </div>
+
             <!-- Linha 3: Tempo de banho + Quantas vezes lava louça -->
             <div class="linha">
                 <div class="campo">
-                    <label>Tempo médio de banho por pessoa (min)</label>
-                    <input type="range" id="tempoBanho" min="5" max="30" value="10"
-                        oninput="this.nextElementSibling.innerText = this.value + ' min'" />
-                    <span>10 min</span>
+                    <label for="tempoBanho">Tempo médio de banho por pessoa (min)</label>
+                    <input type="range" id="tempoBanho" min="5" max="25" step="5" value="10"
+                        oninput="atualizarValor('tempoBanho', 'valorBanho')" />
+                    <div class="range-labels">
+                        <span>5</span>
+                        <span>10</span>
+                        <span>15</span>
+                        <span>20</span>
+                        <span>25+</span>
+                    </div>
+                    <span id="valorBanho">10 min</span>
                 </div>
 
                 <div class="campo">
@@ -169,10 +189,12 @@
             <!-- Linha 4: Botão -->
             <div class="linha">
                 <div class="campo" style="flex: 1; text-align: right;">
-                    <button onclick="calcular()" style="margin-top: 30px; ">CALCULAR</button>
+                    <button onclick="calcular()" style="margin-top: 30px;">CALCULAR</button>
                 </div>
             </div>
         </div>
+
+
 
 
         <div id="modalResultado" class="modal hidden">
@@ -190,16 +212,17 @@
             <!-- Conteúdo principal -->
             <div class="modal-body">
                 <h3>Seu resultado de Consumo:</h3>
-                <p class="descricao" style="text-align: left;">Veja sua estimativa mensal com base nas suas respostas.</p>
+                <p class="descricao" style="text-align: left;">Veja sua estimativa mensal com base nas suas respostas.
+                </p>
                 <p class="descricao" style="font-weight: bold;">Você consome aproximadamente:</p>
                 <p class="valor">
                     <i class="bi bi-droplet-half"></i>
                     <strong id="resultadoModal">0 litros por mês</strong>
                 </p>
                 <p id="tipoConsumo">
-  <span style="font-weight: bold;">Tipo de consumo:</span>
-  <span id="nivelConsumo">moderado.</span>
-</p>
+                    <span style="font-weight: bold;">Tipo de consumo:</span>
+                    <span id="nivelConsumo">moderado.</span>
+                </p>
                 <div class="modal-buttons">
                     <button class="btn gerar-pdf">Gerar PDF</button>
                     <button class="btn refazer" onclick="fecharModal()">Refazer cálculo</button>
@@ -338,14 +361,29 @@
                 document.getElementById('resultadoFinal').classList.remove('hidden');
             }
 
-            // Inicializa o botão selecionado padrão
+            // Inicializações ao carregar
             window.addEventListener('DOMContentLoaded', () => {
+                // Botão de pessoas
                 const btnInicial = document.querySelector('#pessoas button');
                 if (btnInicial) {
                     btnInicial.classList.add('selected');
                 }
+
+                // Slider do banho
+                const banhoSlider = document.getElementById('tempoBanho');
+                const valorBanho = document.getElementById('valorBanho');
+
+                function atualizarValorBanho() {
+                    const valor = Number(banhoSlider.value);
+                    valorBanho.textContent = valor >= 25 ? '25+' : valor;
+                }
+
+                banhoSlider.addEventListener('input', atualizarValorBanho);
+
+                atualizarValorBanho(); // valor inicial
             });
         </script>
+
         <div class="container-planejando">
             <div class="planejando">
                 <div class="planejando-container">

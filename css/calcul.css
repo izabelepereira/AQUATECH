@@ -177,16 +177,17 @@ header {
 
 @font-face {
   font-family: 'Agrandir TextBold';
-  src: url('../../fonts/Agrandir-TextBold.otf') format('opentype');
+  src: url('../fonts/Agrandir-TextBold.otf') format('opentype');
 }
 
 .form-group {
   padding: 3rem 2rem;
-  background-color: #e7e7e7;
-  border-radius: 20px;
+  background-color: #f1f1f1;
+  border-radius: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   max-width: 1000px;
   margin: 0 auto;
+  
 }
 
 .linha {
@@ -194,6 +195,7 @@ header {
   flex-wrap: wrap;
   gap: 2rem;
   margin-bottom: 2rem;
+
 }
 
 .campo {
@@ -201,18 +203,96 @@ header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: #dfdfdf;
+  background-color: #e9e9e9;
   padding: 0.8rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 
 .campo label {
-  font-weight: 600;
+  font-weight: 500;
   color: #0b5498;
-  font-family: 'Glacial Indifference', sans-serif;
-  margin-left: 1rem;
+  font-family: 'Alata', sans-serif !important;
   font-size: 1.1rem;
 }
+
+input[type=range] {
+  width: 100%;
+  margin: 10px 0;
+  accent-color: #007bff;
+  height: 8px; /* deixa o range mais grosso */
+  -webkit-appearance: none; /* remove estilo padrão */
+  background: #ccc;
+  border-radius: 5px;
+}
+
+/* Para o track no Firefox */
+input[type="range"]::-moz-range-track {
+  background: #ccc;
+  height: 8px; /* mesma altura pra manter consistente */
+}
+
+/* Para o track no Chrome/Edge */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #ccc;
+  height: 8px;
+  border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #007bff;
+  border: none;
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+  margin-top: -2px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: #007bff;
+  border: none;
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+}
+
+/* Remove o polegar no IE */
+input[type="range"]::-ms-thumb {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+}
+
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+    margin-top: -4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.range-container {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.range-container input[type="range"] {
+  flex-grow: 1;
+}
+
+.unidade {
+  font-size: 14px;
+  color: #333;
+}
+
 
 .campo input[type="number"],
 .campo input[type="range"] {
@@ -221,7 +301,7 @@ header {
   border: none;
   border-radius: 1rem;
   font-size: 1rem;
-  background-color: #a7bbcf;
+  background-color: #c6d1db;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
 }
 
@@ -274,10 +354,56 @@ header {
   border: 1px solid #0b5498;
 }
 
-.campo input[type="radio"] {
-  margin-right: 0.5rem;
-  margin-top: -2rem;
+.radio-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 15px;
+  font-family: 'Alata', sans-serif;
+  gap: 8px;
 }
+
+.radio-wrapper input[type="radio"] {
+  display: none;
+}
+
+.custom-radio {
+  position: relative; /* importante para o absolute do ícone */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0d5293;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+  color: white;
+}
+
+.custom-radio i {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  color: white;
+  font-size: 1.2rem;
+}
+
+
+
+.radio-wrapper input[type="radio"]:checked + .custom-radio {
+  background-color: #0d5293;
+}
+
+.radio-wrapper input[type="radio"]:checked + .custom-radio i {
+  opacity: 1;
+}
+
 
 .campo span {
   font-weight: 500;
@@ -317,8 +443,8 @@ header {
   width: 450px;
   max-width: 95%;
   z-index: 100;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  font-family: 'Poppins';
   min-height: 460px;
   overflow: hidden;
 }
@@ -330,7 +456,7 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px); /* Aqui é o efeito de blur */
   z-index: 90;
 }
 
@@ -368,24 +494,24 @@ header {
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  color: #0b5498;
+  color: #0d5293;
 }
 
 .modal-close i {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   padding:  0.1rem 0.2rem;
-  background-color: #ffffff6b;
+  background-color: #aec4d7;
   border-radius: 50%;
 }
 
 /* Corpo do modal */
 .modal-body {
-  padding: 3rem;
+  padding: 3.4rem;
   padding-top: 3.5rem;
   text-align: center;
   background-color: #ffffff;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 0.7rem;
+  border-top-right-radius: 0.7rem;
 }
 
 .modal-body h3 {
@@ -434,7 +560,7 @@ header {
 }
 
 .btn {
-  padding: 0.6rem 2.5rem;
+  padding: 0.5rem 2.5rem;
   border-radius: 0.8rem;
   border: 1px solid  #143263;
   background-color: #fff;
@@ -455,7 +581,7 @@ header {
   align-items: center;
   gap: 0.5rem;
   /* espaço entre label e select */
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   /* pra alinhar com o resto do seu label */
 }
 
