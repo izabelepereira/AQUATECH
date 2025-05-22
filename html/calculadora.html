@@ -11,34 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet" />
     <style>
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 
 <body>
-    <div id="navbar-container"></div>
-    <script>
-        fetch("./components/navbar.html")
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById("navbar-container").innerHTML = data;
-                inicializarModalNavbar(); // função que liga os eventos do modal
-            });
 
-        function inicializarModalNavbar() {
-            const modal = document.getElementById("modalAcessibilidade");
-            const abrirBotoes = document.querySelectorAll(".abrir-modal");
-            abrirBotoes.forEach(botao => {
-                botao.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    modal.classList.add("show");
-                });
-            });
-            // Adicione os outros listeners do modal aqui...
-        }
-    </script>
     <main>
         <section class="hero-banner">
             <div class="conteudo-banner">
@@ -132,7 +109,7 @@
 
             <!-- Linha 2: Descargas + Lava o carro -->
             <div class="linha">
-                <div class="campo">
+                <div class="campo coluna-esquerda">
                     <label>Descargas por dia (média total)</label>
                     <input type="number" id="descargas" min="0" placeholder="Insira um número" />
                 </div>
@@ -194,8 +171,7 @@
             </div>
         </div>
 
-
-
+        <div id="relatorioContainer"></div>
 
         <div id="modalResultado" class="modal hidden">
 
@@ -224,7 +200,7 @@
                     <span id="nivelConsumo">moderado.</span>
                 </p>
                 <div class="modal-buttons">
-                    <button class="btn gerar-pdf">Gerar PDF</button>
+                    <button id="btnGerarPDF" class="btn gerar-pdf">Gerar PDF</button>
                     <button class="btn refazer" onclick="fecharModal()">Refazer cálculo</button>
                 </div>
             </div>
@@ -336,13 +312,16 @@
                 if (lavaCarro && metodoCarro === 'mangueira') consumo += 500;
                 else if (lavaCarro && metodoCarro === 'balde') consumo += 100;
 
-                const tipo = consumo < 5000 ? 'baixo' : consumo < 10000 ? 'moderado.' : 'alto.';
+                // Ajustando os tipos para corresponder ao que quer:
+                const tipo = consumo < 5000 ? 'Baixo' : consumo < 10000 ? 'Médio' : 'Alto';
 
+                // Exibir resultado no modal
                 document.getElementById('resultadoModal').innerText = consumo.toLocaleString() + ' litros por mês.';
                 document.getElementById('tipoConsumo').innerText = 'Tipo de consumo: ' + tipo;
                 document.getElementById('modalResultado').classList.remove('hidden');
                 document.getElementById('overlay').classList.remove('hidden');
 
+                // Guardar resultado globalmente
                 window._resultadoConsumo = { consumo, tipo };
             }
 
@@ -353,23 +332,86 @@
                 const r = window._resultadoConsumo;
                 if (!r) return;
 
-                document.getElementById('resultadoFinal').innerHTML = `
-            <h3>SEU CONSUMO ESTIMADO</h3>
-            <p>Você consome aproximadamente: <strong>${r.consumo.toLocaleString()} litros por mês</strong></p>
-            <p><em>Tipo de consumo: ${r.tipo}</em></p>
+                // Criar o bloco de dica baseado no tipo de consumo
+                let dica = "";
+
+                if (r.tipo === "Baixo") {
+                    dica = `
+            <div class="card">
+                <strong>✅ Mantenha seus hábitos</strong>
+                <p>Você já está no caminho certo, continue consciente!</p>
+            </div>
+            <div class="card">
+                <strong>✅ Compartilhe boas práticas</strong>
+                <p>Incentive familiares e amigos a economizar também.</p>
+            </div>
+            <div class="card">
+                <strong>✅ Compartilhe boas práticas</strong>
+                <p>Incentive familiares e amigos a economizar também.</p>
+            </div>
         `;
+                } else if (r.tipo === "Médio") {
+                    dica = `
+            <div class="card">
+                <strong>🚿 Reduza o tempo do banho</strong>
+                <p>Banhos curtos economizam muita água.</p>
+            </div>
+            <div class="card">
+                <strong>♻️ Reutilize a água</strong>
+                <p>Use a água da máquina de lavar para limpar o quintal ou calçada.</p>
+            </div>
+            <div class="card">
+                <strong>♻️ Reutilize a água</strong>
+                <p>Use a água da máquina de lavar para limpar o quintal ou calçada.</p>
+            </div>
+        `;
+                } else if (r.tipo === "Alto") {
+                    dica = `
+            <div class="card">
+                <strong>🔧 Verifique vazamentos</strong>
+                <p>Torneiras pingando gastam litros por dia.</p>
+            </div>
+            <div class="card">
+                <strong>🪥 Feche a torneira</strong>
+                <p>Escove os dentes com a torneira sempre fechada.</p>
+            </div>
+            <div class="card">
+                <strong>🪣 Use balde</strong>
+                <p>Ao lavar o carro ou calçada, evite mangueiras.</p>
+            </div>
+        `;
+                }
+
+                // Exibir o resultado com as dicas no elemento resultadoFinal
+                document.getElementById('resultadoFinal').innerHTML = `
+        <div class="caixa-resultado">
+            <h3>Você consome aproximadamente:</h3>
+            <div class="consumo-mensal">
+                <i class="bi bi-droplet"></i> ${r.consumo.toLocaleString()} litros por mês
+            </div>
+
+            <h4>Dicas personalizadas:</h4>
+            <div class="dicas">
+                ${dica}
+            </div>
+
+            <p class="tipo-consumo">
+                <strong>Tipo de consumo:</strong> ${r.tipo.toLowerCase()}
+            </p>
+        </div>
+    `;
+
                 document.getElementById('resultadoFinal').classList.remove('hidden');
             }
 
-            // Inicializações ao carregar
+
             window.addEventListener('DOMContentLoaded', () => {
-                // Botão de pessoas
+                // Inicializa o botão de pessoas e o slider de banho
                 const btnInicial = document.querySelector('#pessoas button');
                 if (btnInicial) {
                     btnInicial.classList.add('selected');
                 }
 
-                // Slider do banho
                 const banhoSlider = document.getElementById('tempoBanho');
                 const valorBanho = document.getElementById('valorBanho');
 
@@ -379,96 +421,194 @@
                 }
 
                 banhoSlider.addEventListener('input', atualizarValorBanho);
-
                 atualizarValorBanho(); // valor inicial
+
+                // Função para gerar o HTML do relatório
+                function gerarRelatorioHTML(r) {
+                    let dica = "";
+                    if (r.tipo === "Baixo") {
+                        dica = `
+            <ul>
+                <li><strong>✅ Mantenha seus hábitos:</strong> Você já está no caminho certo, continue consciente!</li>
+                <li><strong>✅ Compartilhe boas práticas:</strong> Incentive familiares e amigos a economizar também.</li>
+            </ul>`;
+                    } else if (r.tipo === "Médio") {
+                        dica = `
+            <ul>
+                <li><strong>🚿 Reduza o tempo do banho:</strong> Banhos curtos economizam muita água.</li>
+                <li><strong>♻️ Reutilize a água:</strong> Use a água da máquina de lavar para limpar o quintal ou calçada.</li>
+            </ul>`;
+                    } else if (r.tipo === "Alto") {
+                        dica = `
+            <ul>
+                <li><strong>🔧 Verifique vazamentos:</strong> Torneiras pingando gastam litros por dia.</li>
+                <li><strong>🪥 Feche a torneira:</strong> Escove os dentes com a torneira fechada sempre.</li>
+                <li><strong>🪣 Use balde:</strong> Ao lavar o carro ou calçada, evite mangueiras.</li>
+            </ul>`;
+                    }
+
+                    const html = `
+            <div id="relatorio" style="font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <img src="../imagens/logobl.png" alt="Logo Aquatech" style="height: 40px;">
+                    <div style="text-align: right;">
+                        <strong>Data do Relatório:</strong><br>
+                        <span>${r.data}</span>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 40px;">RELATÓRIO<br><span style="font-weight: bold;">DE CONSUMO DE ÁGUA</span></h2>
+
+                <h3>RESUMO GERAL:</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid #000; padding: 8px; text-align: left;">INDICADOR</th>
+                            <th style="border: 1px solid #000; padding: 8px; text-align: left;">RESULTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 8px;">Consumo mensal estimado</td>
+                            <td style="border: 1px solid #000; padding: 8px;">${r.consumo}</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 8px;">Classificação</td>
+                            <td style="border: 1px solid #000; padding: 8px;">${r.tipo}</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 8px;">Pessoas na residência</td>
+                            <td style="border: 1px solid #000; padding: 8px;">${r.pessoas} pessoas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>OBSERVAÇÕES:</h3>
+                <p>Comportamento analisado com base nos hábitos informados.</p>
+
+                <h3>DESTAQUES DO CONSUMO:</h3>
+                <ul style="margin-bottom: 30px;">
+                    <li>Banhos prolongados: média de ${r.banho} minutos.</li>
+                    <li>Descargas: ${r.descargas} vezes por dia.</li>
+                    <li>Lavagem de louça: ${r.louca} minutos com torneira aberta.</li>
+                    <li>${r.carro}</li>
+                </ul>
+
+                <h3>DICAS PERSONALIZADAS:</h3>
+                ${dica}
+
+                <p style="text-align: right; margin-top: 50px;"><strong>2025, Aquatech.</strong></p>
+            </div>`;
+
+                    document.getElementById('relatorioContainer').innerHTML = html;
+                }
+
+                // Função que monta o relatório a partir dos inputs
+                function montarRelatorio() {
+                    const escovarInput = document.getElementById('tempoEscovar');
+                    const descargasInput = document.getElementById('descargas');
+                    const lavaLoucaChecked = document.querySelector('input[name="lavaLouca"]:checked');
+                    const tempoLoucaInput = document.getElementById('tempoLouca');
+                    const vezesLoucaInput = document.getElementById('vezesLouca');
+                    const lavaCarroChecked = document.querySelector('input[name="lavaCarro"]:checked');
+                    const metodoCarroSelect = document.getElementById('metodoCarro');
+
+                    const banho = Number(document.getElementById('tempoBanho').value);
+                    const escovar = escovarInput ? Number(escovarInput.value) : 0;
+                    const descargas = Number(descargasInput.value);
+                    const vezesLouca = Number(vezesLoucaInput.value);
+
+                    const lavaLouca = lavaLoucaChecked?.value === 'sim';
+                    const tempoLouca = lavaLouca ? Number(tempoLoucaInput.value) : 0;
+
+                    const lavaCarro = lavaCarroChecked?.value === 'sim';
+                    const metodoCarro = lavaCarro ? metodoCarroSelect.value : '';
+                    const carroTexto = lavaCarro
+                        ? metodoCarro === 'mangueira'
+                            ? 'Lava o carro com mangueira.'
+                            : metodoCarro === 'balde'
+                                ? 'Lava o carro com balde.'
+                                : 'Lava o carro.'
+                        : 'Não lava o carro.';
+
+                    let consumo = 0;
+                    consumo += pessoas * banho * 12 * 30;
+                    consumo += escovar * 4 * pessoas * 30;
+                    consumo += descargas * 12;
+                    consumo += tempoLouca * vezesLouca * 30;
+                    if (lavaCarro && metodoCarro === 'mangueira') consumo += 500;
+                    else if (lavaCarro && metodoCarro === 'balde') consumo += 100;
+
+                    const tipo = consumo < 5000 ? 'Baixo' : consumo < 10000 ? 'Médio' : 'Alto';
+
+                    return {
+                        data: new Date().toLocaleDateString(),
+                        consumo: `${consumo.toLocaleString()} Litros`,
+                        tipo,
+                        pessoas,
+                        banho,
+                        descargas,
+                        louca: tempoLouca,
+                        carro: carroTexto
+                    };
+                }
+
+                // Geração do PDF
+                document.getElementById('btnGerarPDF').addEventListener('click', () => {
+                    const relatorio = montarRelatorio();
+
+                    // Gera o HTML do relatório
+                    gerarRelatorioHTML(relatorio);
+
+                    // Verifica se o relatório está visível
+                    setTimeout(() => {
+                        const element = document.getElementById('relatorio');
+
+                        // Checa se o elemento do relatório está no DOM
+                        if (!element) {
+                            console.log('Relatório não encontrado!');
+                            alert('Elemento do relatório não encontrado!');
+                            return;  // Impede a geração do PDF
+                        }
+
+                        // Verifica a visibilidade do relatório
+                        const visibility = window.getComputedStyle(element).visibility;
+                        const display = window.getComputedStyle(element).display;
+
+                        if (visibility === 'hidden' || display === 'none') {
+                            console.log('Relatório não está visível!');
+                            alert('O relatório não está visível, verifique os estilos aplicados!');
+                            return;  // Impede a geração do PDF
+                        }
+
+                        // Log para confirmar que tudo está correto
+                        console.log('Relatório renderizado corretamente!');
+                        console.log('Visibilidade:', visibility);
+                        console.log('Display:', display);
+
+                        // Gerar o PDF a partir do elemento renderizado
+                        const options = {
+                            margin: 0.5,
+                            filename: 'relatorio_consumo_agua.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2 },
+                            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                        };
+
+                        html2pdf().set(options).from(element).save();
+                    }, 1000); // Atraso de 1000ms para garantir que o relatório foi renderizado
+                });
             });
+
+
         </script>
 
-        <div class="container-planejando">
-            <div class="planejando">
-                <div class="planejando-container">
-                    <div class="text-box-2">
-                        <h1>PLANEJANDO HOJE,<br>IMPACTANDO O AMANHÃ</h1>
-                        <p>A Aquatech oferece soluções inteligentes, reduz desperdícios e promove conscientização
-                            ambiental por meio de pilares estratégicos:
-                        </p>
-                        <div class="checkboxes">
-                            <div class="item">
-                                <i class="fa-solid fa-check"></i>
-                                <p>Contribuir para um futuro mais responsável</p>
-                            </div>
-                            <div class="item">
-                                <i class="fa-solid fa-check"></i>
-                                <p>Promover o uso de tecnologias sustentáveis</p>
-                            </div>
-                            <div class="item">
-                                <i class="fa-solid fa-check"></i>
-                                <p>Impulsionar a transformação do setor hídrico</p>
-                            </div>
-                            <div class="item">
-                                <i class="fa-solid fa-check"></i>
-                                <p>Garantir equilíbrio no uso dos recursos</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="image-box-3">
-                        <img src="../img/usina.png" alt="quemsomosimg" / class="usina">
-                        <div class="image-sobreposicao">
-                            <img src="../img/worker2.png" alt="secimg" class="trabalhador">
-                        </div>
-                        <p class="text-medicao">
-                            Quer saber se está gastando demais? Faça a medição agora mesmo!
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button id="rounded-box">
-            <a href="#" class="none">
-                <p>Medir meu consumo <i class="fa-solid fa-arrow-trend-up"></i></p>
-            </a>
-        </button>
-        <hr class="linha-3">
-        <div class="fazer-login">
-            <p>Entre agora e transforme o futuro <br> da água com a gente!</p>
-            <button class="login-btn">
-                <a href="login.html" class="none">
-                    <p>Fazer login</p>
-                </a>
-            </button>
-        </div>
-        <hr id="linha-3">
-        <div class="sustentabilidade">
-            <div class="texto">
-                <h1>
-                    Sustentabilidade que se adapta,<br>
-                    tecnologia que evolui.
-                </h1>
-                <p>2025, Aquatech.</p>
-            </div>
-            <div class="linha-e-links">
-                <div class="linha-vertical"></div>
-                <div class="menu-links">
-                    <p class="titulo-menu">Conheça a Plataforma</p>
-                    <a href="#">Home</a>
-                    <a href="#">Quem somos</a>
-                    <a href="#">Recursos</a>
-                    <a href="#">Soluções</a>
-                </div>
-            </div>
-        </div>
-        <footer class="footer">
-            <div class="social-media">
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-x-twitter"></i>
-                <i class="fa-brands fa-facebook"></i>
-            </div>
-            <img src="../img/logo_aquatech.png" alt="logo_aquatech" class="logo">
-            <p class="copyright">© 2025 Aquatech.</p>
-        </footer>
-        </div>
+
 
     </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </body>
 
 </html>
