@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
@@ -22,17 +21,6 @@ header {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #0077cc;
-}
-
-nav a {
-  margin-left: 2rem;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-nav .acessibilidade {
   color: #0077cc;
 }
 
@@ -58,7 +46,7 @@ nav .acessibilidade {
 }
 
 .hero-banner .botao {
-  background-color: #aee0ff;
+  background: linear-gradient(to right, #1d6ebe, #4f85b0, #81cdfc);
   color: #003366;
   padding: 0.9rem 2rem;
   border-radius: 50px;
@@ -138,28 +126,60 @@ nav .acessibilidade {
 
 .cards {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
+  /* menos gap deixa os cards mais colados */
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 .card {
-  background: #fff;
-  border: 2px solid #cce5ff;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  max-width: 280px;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  height: 120px;
+  padding-bottom: 3.5rem;
+  border: #0b5498 solid 2px;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  /* centraliza horizontalmente */
+  align-items: center;
+  /* centraliza verticalmente */
   text-align: center;
+  min-width: 300px;
+  max-width: 220px;
+  margin: 0;
 }
 
-.card i {
-  font-size: 2rem;
-  display: block;
-  margin-top: 1rem;
-  color: #0077cc;
+.card p {
+  margin: 0 auto;
+  max-width: 220px;
+  font-family: 'CodecColdRegular';
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.3;
+  color: #0b5498;
+  padding-top: 3rem;
+  /* aumenta esse valor pra descer o texto */
+  font-weight: 600;
 }
+
+
+.card i {
+  position: absolute;
+  bottom: -8px;
+  /* "puxa" o ícone pra fora do card pra baixo */
+  left: 17rem;
+  font-size: 2.5rem;
+  color: #0b5498;
+  background-color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 .linha-separadora {
   width: 25%;
@@ -183,89 +203,52 @@ nav .acessibilidade {
 .carrossel-titulo {
   font-family: 'Poppins';
   font-size: 1.5rem;
-  color: #003366;
+  color: #0b5498;
   margin-bottom: 0.5rem;
   text-align: left;
   font-weight: 700 !important;
+  margin-left: 10rem;
 }
 
 .carrossel-subtitulo {
-  font-size: 1rem;
-  color: #666;
+  font-size: 1.4rem;
+  color: #0b5498;
   margin-bottom: 2rem;
   text-align: left;
-}
-
-.carrossel-container {
-  position: relative;
-  max-width: 90%;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.carrossel {
-  display: flex;
-  gap: 1rem;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carrossel img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 1rem;
-  flex-shrink: 0;
-}
-
-.carrossel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #ffffffcc;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.2rem 1rem;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-}
-
-.carrossel-btn.left {
-  left: 0.5rem;
-}
-
-.carrossel-btn.right {
-  right: 0.5rem;
+  margin-left: 10rem;
+  font-family: 'Poppins';
 }
 
 .swiper {
   width: 100%;
-  padding-bottom: 3rem;
+  max-width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding-bottom: 4rem;
   position: relative;
 }
 
 .swiper-slide img {
-  width: 50%;
-  border-radius: 1rem;
+  width: 85%;
   height: auto;
   object-fit: cover;
+  border-radius: 3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
 }
 
-.swiper-pagination-bullet {
-  background: #0b5498;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 2rem;
+  font-weight: 900;
   color: #0b5498;
 }
 
 .carrossel-texto {
   margin-top: 2rem;
-  font-family: 'Inter';
-  color: #333;
-  text-align: center;
+  font-family: 'Poppins';
+  color: #0b5498;
+  text-align: left;
   /* Centraliza o texto */
   display: flex;
   flex-direction: column;
@@ -277,10 +260,473 @@ nav .acessibilidade {
   font-size: 1.6rem;
   color: #0b5498;
   margin-bottom: 0.5rem;
+  text-align: left;
 }
 
 .carrossel-texto p {
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 1.6;
   max-width: 800px;
+  margin-left: -5rem;
+}
+
+.linha-3 {
+  border: none;
+  border-top: 2px solid #143263;
+  opacity: 1;
+  margin-top: 5%;
+  width: 50%;
+  margin-left: 5%;
+}
+
+#linha-3 {
+  border: none;
+  border-top: 2px solid #143263;
+  opacity: 1;
+  width: 90%;
+  margin-left: 5%;
+}
+
+
+.fazer-login {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 2%;
+  margin-left: 11%;
+}
+
+.fazer-login p {
+  font-size: 1.4rem;
+  color: #143263;
+  font-weight: bold;
+  font-family: 'Poppins';
+  margin-left: -5rem;
+}
+
+.login-btn {
+  width: 25%;
+  height: 55px;
+  border: none;
+  border-radius: 4rem;
+  background-color: #37517a;
+  padding: 1rem;
+  margin-bottom: 40px;
+  margin-top: 4%;
+  margin-left: 40%;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: linear-gradient(to right, #728ebc, #143263);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.login-btn p {
+  font-size: 1.4rem;
+  color: white;
+  text-align: center;
+  margin: 0;
+  margin-top: -8px;
+  font-weight: normal;
+}
+
+.sustentabilidade {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 2%;
+  margin-left: 11%;
+  margin-right: 15%;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.sustentabilidade h1 {
+  font-size: 1.4rem;
+  color: #0e4376;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: -5rem;
+}
+
+.sustentabilidade p {
+  font-size: 1.3rem;
+  color: #0e4376;
+  font-weight: 500;
+  text-align: justify;
+  line-height: 55px;
+  margin-left: -5rem;
+}
+
+.linha-e-links {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-left: -30rem;
+}
+
+.linha-vertical {
+  width: 2px;
+  height: 170px;
+  background-color: #143263;
+
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-right: -5rem;
+}
+
+.menu-links a {
+  text-decoration: none;
+  color: #0e4376;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0;
+
+
+}
+
+.titulo-menu {
+  color: #0b5498;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.menu-links a:hover {
+  color: #143263;
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+  background-color: #37517a;
+  margin-top: 2%;
+  width: 100%;
+}
+
+footer p {
+  color: #ffffff;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 30px;
+}
+
+
+.social-media {
+  margin-left: 3rem;
+}
+
+.social-media i {
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.social-media i:last-child {
+  margin-right: 0;
+}
+
+.copyright {
+  font-size: 1rem;
+  margin-right: 5rem;
+  font-family: Arial;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1080px) {
+
+  /* Ajustes gerais para o corpo e texto */
+  html,
+  body {
+    font-size: 0.7rem;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Esconder todos os elementos que você não quer mostrar */
+  .botao,
+  .servicos,
+  .servicos-header,
+  .social-media,
+  .copyright,
+  .linha-e-links,
+  .menu-links,
+  #linha-3,
+  /* Esconde a linha */
+  .sustentabilidade h1,
+  .entre-agora,
+  /* Esconde o título "Sustentabilidade que se adapta" */
+  .sustentabilidade p {
+    /* Esconde o parágrafo dentro de .sustentabilidade */
+    display: none !important;
+  }
+
+  /* Estilo do botão de login */
+  .login-btn {
+    width: 80%;
+    /* Ajuste a largura para 80% da tela */
+    margin: 20px auto;
+    /* Centraliza o botão */
+    padding: 1rem;
+    /* Adiciona espaço interno ao botão */
+    font-size: 1.5rem;
+    /* Aumenta o tamanho da fonte */
+    text-align: center;
+    border-radius: 4rem;
+    /* Deixa os cantos arredondados */
+    background-color: #37517a;
+    color: white;
+    border: none;
+    display: block;
+    min-height: 60px;
+    /* Define uma altura mínima para o botão */
+    line-height: 60px;
+    /* Alinha verticalmente o texto dentro do botão */
+    min-width: 60%;
+    max-width: 90%;
+    margin-left: 3rem !important;
+    margin-top: 4rem;
+  }
+
+  /* Estilo do botão ao passar o mouse */
+  .login-btn:hover {
+    background: linear-gradient(to right, #728ebc, #143263);
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+@font-face {
+  font-family: 'Agrandir Regular';
+  src: url('../../fonts/agrandir-regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('../../fonts/GlacialIndifference-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'CodecColdRegular';
+  src: url('../../fonts/Codec-Cold-Regular-trial.ttf') format('truetype');
+}
+
+.agrandir {
+  font-family: 'Agrandir Regular', sans-serif;
+}
+
+.glacial {
+  font-family: 'Glacial Indifference', sans-serif;
+}
+
+.codec-cold-regular {
+  font-family: 'CodecColdRegular', sans-serif;
+}
+
+/* RESPONSIVO: telas até 768px (tablets e celulares maiores) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    height: 110px;
+    border-radius: 1rem;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    /* centraliza verticalmente */
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: -1.25rem;
+    /* metade da altura pra centralizar certinho */
+    z-index: 10;
+    cursor: pointer;
+    color: #0b5498;
+  }
+
+  .swiper-button-prev {
+    left: 40px;
+    /* a 10px da borda esquerda */
+  }
+
+  .swiper-button-next {
+    right: 10px;
+    /* a 10px da borda direita */
+  }
+
+
+
+  .hero-banner {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .hero-banner .hero-image {
+    width: 80%;
+    height: auto;
+    border-radius: 20px;
+  }
+
+
+  .linha-separadora {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .carrossel-titulo,
+  .carrossel-subtitulo {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .carrossel-texto p {
+    margin-left: 0;
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .carrossel-texto h3 {
+    font-size: 1.2rem;
+    color: #0b5498;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .fazer-login {
+    margin-left: -3rem;
+  }
+
+  .fazer-login p {
+    margin-left: 0;
+    font-size: 1.2rem;
+  }
+
+  .login-btn {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem;
+  }
+
+  .sustentabilidade {
+    flex-direction: column;
+    margin: 2rem 1rem;
+    align-items: flex-start;
+  }
+
+  .sustentabilidade h1,
+  .sustentabilidade p {
+    margin-left: 0;
+  }
+
+  .linha-e-links {
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .linha-vertical {
+    height: 100px;
+  }
+
+  .menu-links {
+    margin-right: 0;
+    font-size: 1rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .footer .logo {
+    position: static;
+    transform: none;
+  }
+
+  .social-media {
+    margin-left: 0;
+  }
+
+  .copyright {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* RESPONSIVO: telas pequenas (até 480px - celulares pequenos) */
+@media (max-width: 480px) {
+
+  body,
+  html {
+    font-size: 14px;
+  }
+
+  .hero-banner .botao {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .servicos {
+    padding: 1rem;
+  }
+
+
+  .card p {
+    font-size: 1rem;
+    padding-top: 2rem;
+  }
+
+  .carrossel-titulo,
+  .carrossel-subtitulo {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  .login-btn {
+    width: 95%;
+    font-size: 1rem;
+  }
+}
+
+body,
+html {
+  overflow-x: hidden !important;
+  /* Esconde o scroll horizontal */
 }

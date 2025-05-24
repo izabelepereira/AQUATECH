@@ -4,18 +4,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Aquatech</title>
+    <title>Recursos</title>
     <link rel="stylesheet" href="../css/calcul.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alata&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet" />
-    <style>
-    </style>
+    <script src="https://kit.fontawesome.com/1584cc6a34.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <script src="../js/teste.js"></script>
 
+    <!-- Se precisar do seu JS externo para o modal, acessibilidade etc, inclui aqui -->
+    <script src="../js/navbar.js"></script>
+    <meu-navbar></meu-navbar>
     <main>
         <section class="hero-banner">
             <div class="conteudo-banner">
@@ -31,21 +37,21 @@
             </p>
 
             <div class="cards">
-                <div class="card">
+                <div class="card-1">
                     <i class="bi bi-patch-question-fill"></i><br />
                     <h3>Por que usar?</h3><br />
                     <p>Simule seu consumo<br /> de água e identifique <br /> onde estão os maiores <br /> desperdícios
                         no seu<br /> dia a dia.
                     </p>
                 </div>
-                <div class="card">
+                <div class="card-1">
                     <i class="bi bi-gear-fill"></i><br />
                     <h3>Como funciona?</h3><br />
                     <p>Responda perguntas<br /> rápidas. A calculadora <br /> estima seu consumo <br /> mensal com base
                         nos<br /> hábitos.
                     </p>
                 </div>
-                <div class="card">
+                <div class="card-1">
                     <i class="bi bi-rocket-takeoff-fill"></i><br />
                     <h3>O que você ganha?</h3><br />
                     <p>Consciência ambiental, <br /> economia na conta e <br /> ações práticas para um <br /> futuro
@@ -89,12 +95,12 @@
                         <label class="radio-wrapper">
                             <input type="radio" name="lavaLouca" value="sim" onclick="mostrarLouca(true)" />
                             <span class="custom-radio"><i class="bi bi-check"></i></span>
-                            <span>Sim</span>
+                            <span style="font-family: 'Alata', sans-serif;">Sim</span>
                         </label>
                         <label class="radio-wrapper">
                             <input type="radio" name="lavaLouca" value="nao" onclick="mostrarLouca(false)" />
                             <span class="custom-radio"><i class="bi bi-check"></i></span>
-                            <span>Não</span>
+                            <span style="font-family: 'Alata', sans-serif;">Não</span>
                         </label>
                     </div>
 
@@ -118,8 +124,8 @@
                     <div class="label-select-container">
                         <label>Lava o carro?</label>
                         <div id="metodoCarroContainer" class="hidden">
-                            <label>Método:</label>
-                            <select id="metodoCarro">
+                            <label style="font-family: 'Alata', sans-serif;">Método:</label>
+                            <select id="metodoCarro" style="font-family: 'Alata', sans-serif;">
                                 <option value="mangueira">Mangueira</option>
                                 <option value="balde">Balde</option>
                             </select>
@@ -130,12 +136,12 @@
                         <label class="radio-wrapper">
                             <input type="radio" name="lavaCarro" value="sim" onclick="mostrarCarro(true)" />
                             <span class="custom-radio"><i class="bi bi-check"></i></span>
-                            <span>Sim</span>
+                            <span style="font-family: 'Alata', sans-serif;">Sim</span>
                         </label>
                         <label class="radio-wrapper">
                             <input type="radio" name="lavaCarro" value="nao" onclick="mostrarCarro(false)" />
                             <span class="custom-radio"><i class="bi bi-check"></i></span>
-                            <span>Não</span>
+                            <span style="font-family: 'Alata', sans-serif;">Não</span>
                         </label>
                     </div>
                 </div>
@@ -148,13 +154,13 @@
                     <input type="range" id="tempoBanho" min="5" max="25" step="5" value="10"
                         oninput="atualizarValor('tempoBanho', 'valorBanho')" />
                     <div class="range-labels">
-                        <span>5</span>
-                        <span>10</span>
-                        <span>15</span>
-                        <span>20</span>
-                        <span>25+</span>
+                        <span style="font-family: 'Alata', sans-serif;">5</span>
+                        <span style="font-family: 'Alata', sans-serif;">10</span>
+                        <span style="font-family: 'Alata', sans-serif;">15</span>
+                        <span style="font-family: 'Alata', sans-serif;">20</span>
+                        <span style="font-family: 'Alata', sans-serif;">25+</span>
                     </div>
-                    <span id="valorBanho">10 min</span>
+                    <span id="valorBanho" style="font-family: 'Alata', sans-serif;">10 min</span>
                 </div>
 
                 <div class="campo">
@@ -177,7 +183,7 @@
 
             <!-- Header azul com ícone -->
             <div class="modal-header-custom">
-                <img src="../imagens/globo.png" alt="Ícone do globo" class="modal-icon-img">
+                <img src="../imagens/globo1.png" alt="Ícone do globo" class="modal-icon-img">
             </div>
 
             <!-- Botão de fechar -->
@@ -201,7 +207,8 @@
                 </p>
                 <div class="modal-buttons">
                     <button id="btnGerarPDF" class="btn gerar-pdf">Gerar PDF</button>
-                    <button class="btn refazer" onclick="fecharModal()">Refazer cálculo</button>
+                    <button class="btn refazer" onclick="location.reload();">Refazer cálculo</button>
+
                 </div>
             </div>
         </div>
@@ -210,7 +217,64 @@
 
 
 
-        <div class="resultado hidden" id="resultadoFinal"></div>
+        <div class="resultado hidden" id="resultadoFinal">
+
+            <div style="text-align: center; font-family: 'Poppins';">
+                <p class="text-explorar">Quer explorar mais? Veja o que você pode fazer com esse resultado:</p>
+
+                <button class="btn-analisar">Analisar Resultado</button>
+                <button class="btn refazer" onclick="location.reload();">Refazer cálculo</button>
+
+            </div>
+        </div>
+
+
+        <hr class="linha-3" />
+        <div class="fazer-login">
+            <div class="entre-agora">
+                <p>
+                    Entre agora e transforme o futuro <br />
+                    da água com a gente!
+                </p>
+            </div>
+            <button class="login-btn">
+                <a href="login.html" class="none">
+                    <p>Fazer login</p>
+                </a>
+            </button>
+        </div>
+        <div class="rodape" style="font-family: 'Poppins';">
+            <hr id="linha-3" />
+            <div class="sustentabilidade">
+                <div class="texto">
+                    <h1>
+                        Sustentabilidade que se adapta,<br />
+                        tecnologia que evolui.
+                    </h1>
+                    <p>2025, Aquatech.</p>
+                </div>
+                <div class="linha-e-links" style="margin-left: 40%;">
+                    <div class="linha-vertical"></div>
+                    <div class="menu-links">
+                        <p class="titulo-menu" style="margin-left: auto;">Conheça a Plataforma</p>
+                        <a href="#">Home</a>
+                        <a href="#">Quem somos</a>
+                        <a href="#">Recursos</a>
+                        <a href="#">Soluções</a>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="social-media">
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <i class="fa-brands fa-facebook"></i>
+                </div>
+                <img src="../imagens/logobr.png" alt="logo_aquatech" class="logo" />
+                <p class="copyright">© 2025 Aquatech.</p>
+            </footer>
+        </div>
+
 
         <script>
             let pessoas = 1;
@@ -338,45 +402,45 @@
                 if (r.tipo === "Baixo") {
                     dica = `
             <div class="card">
-                <strong>✅ Mantenha seus hábitos</strong>
+                <strong> Mantenha seus hábitos</strong>
                 <p>Você já está no caminho certo, continue consciente!</p>
             </div>
             <div class="card">
-                <strong>✅ Compartilhe boas práticas</strong>
+                <strong> Compartilhe boas práticas</strong>
                 <p>Incentive familiares e amigos a economizar também.</p>
             </div>
             <div class="card">
-                <strong>✅ Compartilhe boas práticas</strong>
+                <strong> Compartilhe boas práticas</strong>
                 <p>Incentive familiares e amigos a economizar também.</p>
             </div>
         `;
                 } else if (r.tipo === "Médio") {
                     dica = `
             <div class="card">
-                <strong>🚿 Reduza o tempo do banho</strong>
+                <strong> Reduza o tempo do banho</strong>
                 <p>Banhos curtos economizam muita água.</p>
             </div>
             <div class="card">
-                <strong>♻️ Reutilize a água</strong>
+                <strong> Reutilize a água</strong>
                 <p>Use a água da máquina de lavar para limpar o quintal ou calçada.</p>
             </div>
             <div class="card">
-                <strong>♻️ Reutilize a água</strong>
+                <strong>Reutilize a água</strong>
                 <p>Use a água da máquina de lavar para limpar o quintal ou calçada.</p>
             </div>
         `;
                 } else if (r.tipo === "Alto") {
                     dica = `
             <div class="card">
-                <strong>🔧 Verifique vazamentos</strong>
+                <strong> Verifique vazamentos</strong>
                 <p>Torneiras pingando gastam litros por dia.</p>
             </div>
             <div class="card">
-                <strong>🪥 Feche a torneira</strong>
+                <strong> Feche a torneira</strong>
                 <p>Escove os dentes com a torneira sempre fechada.</p>
             </div>
             <div class="card">
-                <strong>🪣 Use balde</strong>
+                <strong> Use balde</strong>
                 <p>Ao lavar o carro ou calçada, evite mangueiras.</p>
             </div>
         `;
@@ -399,6 +463,12 @@
                 <strong>Tipo de consumo:</strong> ${r.tipo.toLowerCase()}
             </p>
         </div>
+                    <div style="text-align: center; font-family: 'Poppins';">
+                    <p class="text-explorar">Quer explorar mais? Veja o que você pode fazer com esse resultado:</p>
+
+                    <button class="btn relatorio" onclick="location.hash='relatorioContainer';">Ver Relatório</button>
+
+                    <button class="btn refazer" onclick="location.reload();">Refazer cálculo</button>
     `;
 
                 document.getElementById('resultadoFinal').classList.remove('hidden');
@@ -595,7 +665,14 @@
                             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
                         };
 
-                        html2pdf().set(options).from(element).save();
+                        html2pdf().set(options).from(element).toPdf().get('pdf').then((pdf) => {
+                            console.log('PDF gerado, mas não baixado!');
+                            // Se quiser exibir o PDF na tela, pode fazer assim:
+                            // const blob = pdf.output('blob');
+                            // const url = URL.createObjectURL(blob);
+                            // window.open(url);
+                        });
+
                     }, 1000); // Atraso de 1000ms para garantir que o relatório foi renderizado
                 });
             });
@@ -609,6 +686,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+
+    <!-- Se precisar do seu JS externo para o modal, acessibilidade etc, inclui aqui -->
+    <script src="../js/navbar.js"></script>
 </body>
 
 </html>

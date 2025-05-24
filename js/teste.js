@@ -1,3 +1,15 @@
+class MeuNavbar extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' }); // cria shadow root
+  }
+
+  connectedCallback() {
+    // 1. Coloque o seu HTML COMPLETO dentro de uma template literal
+    // (copie exatamente seu HTML, sem alterar uma vírgula)
+    this.shadowRoot.innerHTML = `
+  <style>
+    @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
 .ajuda i {
   font-size: 2rem;
   color: #0b5498;
@@ -524,3 +536,132 @@
     .codec-cold-regular {
       font-family: 'CodecColdRegular', sans-serif;
     }
+      </style>
+
+      ${`
+        <!-- Navbar -->
+<div class="navbar" id="navbar">
+  <div class="logo">
+    <img src="../../imagens/logobl.png" alt="Logo Aquatech" class="logo-img">
+  </div>
+  <div class="links">
+    <a href="#">Sobre Nós</a>
+    <a href="#">Recursos</a>
+    <a href="#">Soluções</a>
+  </div>
+  <div class="ajuda">
+    <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
+      Ajuda <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Botão Navbar Mobile -->
+<button class="navbar-toggler" type="button" onclick="toggleMenu()">
+  <i class="bi bi-list" id="menuIcon" style="font-size: 1.5rem; z-index: 9999 !important;"></i>
+</button>
+
+<!-- Modal Acessibilidade -->
+<div class="modal" id="modalAcessibilidade">
+  <div class="modal-blur"></div>
+  <div class="modal-content">
+    <h2>
+      <strong>Ajustes de Acessibilidade</strong>
+      <button class="modal-close" onclick="fecharModal()" title="Fechar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </h2>
+    <p>Melhore sua experiência no site.</p>
+
+    <div class="acessibility-grid">
+      <div class="acessibility-option">
+        <p class="opcao-titulo">Tamanho do Texto</p>
+        <div class="font-size-controls">
+          <button onclick="alterarFonte(true)" id="aumento">A +</button>
+          <button onclick="alterarFonte(false)" id="diminuir">a -</button>
+        </div>
+      </div>
+
+      <div class="acessibility-option" onclick="ativarContraste()">
+        <p class="opcao-titulo">Modo Contraste</p>
+        <i class="bi bi-eye"></i>
+      </div>
+
+      <div class="acessibility-option" onclick="lerTexto()">
+        <p class="opcao-titulo">Ouvir Texto</p>
+        <i class="bi bi-ear"></i>
+      </div>
+
+      <div class="acessibility-option" onclick="abrirVLibras()">
+        <p class="opcao-titulo">Traduzir para Libras</p>
+        <img src="../../imagens/libras.svg" alt="Ícone de Libras" style="width: 82px; height: 82px;" />
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="cancelarMudancas()">Cancelar</button>
+      <button class="save-btn" onclick="salvarMudancas()">Salvar mudanças</button>
+    </div>
+  </div>
+</div>
+
+<!-- Menu Lateral (Mobile) -->
+<div class="menu-lateral" id="menuLateral">
+  <a href="#">Sobre Nós</a>
+  <a href="#">Recursos</a>
+  <a href="#">Soluções</a>
+  <div class="ajuda">
+    <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
+      Ajuda <i class="bi bi-universal-access-circle" style="color:#0b5498; font-size: 1.1rem;"></i>
+    </a>
+  </div>
+</div>
+
+<!-- VLibras -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+      `}
+    `;
+
+    // 2. Agora você precisa “adaptar” o seu JS para funcionar dentro do shadow root
+
+    // Exemplo: capturar elementos dentro do shadowRoot e adicionar eventos
+    const modal = this.shadowRoot.getElementById("modalAcessibilidade");
+    const abrirBotoes = this.shadowRoot.querySelectorAll(".abrir-modal");
+    const modalBlur = modal?.querySelector(".modal-blur");
+
+    // Replicar seu JS original com as referências ajustadas para shadowRoot
+    abrirBotoes.forEach(botao => {
+      botao.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.classList.add("show");
+        // ... Você pode replicar o resto da lógica adaptando as variáveis
+      });
+    });
+
+    // Como seu código usa funções globais (ex: toggleMenu), 
+    // você pode criar métodos na classe para isso e ajustar o HTML para chamar esses métodos, 
+    // ou adicionar listeners aqui no JS da classe
+
+    // Exemplo simples para toggleMenu:
+    const btnToggle = this.shadowRoot.querySelector(".navbar-toggler");
+    btnToggle.addEventListener("click", () => {
+      const menuLateral = this.shadowRoot.getElementById('menuLateral');
+      const menuIcon = this.shadowRoot.getElementById('menuIcon');
+      menuLateral.classList.toggle('open');
+      menuIcon.classList.toggle('open');
+    });
+
+    // E assim por diante, você “recria” o comportamento do JS para o shadowRoot
+
+    // Para o restante das funções que você quer manter idênticas, 
+    // você pode transformar elas em métodos da classe ou mover para dentro do connectedCallback
+  }
+}
+
+customElements.define('meu-navbar', MeuNavbar);

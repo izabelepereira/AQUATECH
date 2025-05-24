@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aquatech</title>
+  <title>Home</title>
 
   <!-- Estilos -->
   <link rel="stylesheet" href="../css/home.css" />
@@ -16,8 +16,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://kit.fontawesome.com/1584cc6a34.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/navbar.js"></script>
+
   <style>
     @font-face {
       font-family: 'Agrandir Regular';
@@ -51,26 +52,26 @@
 
 <body>
   <div id="navbar-container"></div>
- <script src="../js/navbar.js"></script>
-<script>
-  fetch('./components/nav.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('navbar-container').innerHTML = data;
-      inicializarModalNavbar();
-    });
-
-  function inicializarModalNavbar() {
-    const modal = document.getElementById("modalAcessibilidade");
-    const abrirBotoes = document.querySelectorAll(".abrir-modal");
-    abrirBotoes.forEach(botao => {
-      botao.addEventListener("click", e => {
-        e.preventDefault();
-        modal.classList.add("show");
+  <script src="../js/navbar.js"></script>
+  <script>
+    fetch('./components/nav.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+        inicializarModalNavbar();
       });
-    });
-  }
-</script>
+
+    function inicializarModalNavbar() {
+      const modal = document.getElementById("modalAcessibilidade");
+      const abrirBotoes = document.querySelectorAll(".abrir-modal");
+      abrirBotoes.forEach(botao => {
+        botao.addEventListener("click", e => {
+          e.preventDefault();
+          modal.classList.add("show");
+        });
+      });
+    }
+  </script>
 
 
 
@@ -87,16 +88,16 @@
       <div class="cards-container">
         <div class="cards">
           <div class="card">
-            <p>Você insere e acompanha seu consumo.</p>
-            <i class="bi bi-droplet"></i>
+            <p>Você insere e <br> acompanha seu <br> consumo.</p>
+            <i class="bi bi-droplet-half"></i>
           </div>
           <div class="card">
-            <p>Sugestões práticas para evitar excessos.</p>
-            <i class="bi bi-gear-fill"></i>
+            <p>Sugestões práticas <br> para evitar <br> excessos.</p>
+            <i class="bi bi-gear-wide-connected"></i>
           </div>
           <div class="card">
-            <p>Geramos dados claros sobre seus hábitos.</p>
-            <i class="bi bi-bar-chart-line-fill"></i>
+            <p>Geramos dados <br> claros sobre seus <br> hábitos.</p>
+            <i class="bi bi-clipboard2-data"></i>
           </div>
         </div>
       </div>
@@ -116,14 +117,16 @@
           <div class="swiper-slide"><img src="../imagens/c4.png" alt="Projeto 4"></div>
           <div class="swiper-slide"><img src="../imagens/c5.png" alt="Projeto 5"></div>
           <div class="swiper-slide"><img src="../imagens/c6.png" alt="Projeto 6"></div>
+          <!-- ... -->
         </div>
 
-        <!-- Setas de navegação -->
+        <!-- Setas -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
+      </div>
 
-        <!-- Bolinhas de paginação -->
-        <div class="swiper-pagination"></div>
+
+
       </div>
     </section>
 
@@ -135,23 +138,68 @@
         ajudamos você a fazer a diferença no uso consciente da água.
       </p>
     </div>
-  </main>
+    <hr class="linha-3" />
+    <div class="fazer-login">
+      <div class="entre-agora">
+        <p>
+          Entre agora e transforme o futuro <br />
+          da água com a gente!
+        </p>
+      </div>
+      <button class="login-btn">
+        <a href="login.html" class="none">
+          <p>Fazer login</p>
+        </a>
+      </button>
+    </div>
+    <div class="rodape" style="font-family: 'Poppins';">
+      <hr id="linha-3" />
+      <div class="sustentabilidade">
+        <div class="texto">
+          <h1>
+            Sustentabilidade que se adapta,<br />
+            tecnologia que evolui.
+          </h1>
+          <p>2025, Aquatech.</p>
+        </div>
+        <div class="linha-e-links" style="margin-left: 40%;">
+          <div class="linha-vertical"></div>
+          <div class="menu-links">
+            <p class="titulo-menu" style="margin-left: auto;">Conheça a Plataforma</p>
+            <a href="#">Home</a>
+            <a href="#">Quem somos</a>
+            <a href="#">Recursos</a>
+            <a href="#">Soluções</a>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="social-media">
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-x-twitter"></i>
+          <i class="fa-brands fa-facebook"></i>
+        </div>
+        <img src="../imagens/logobr.png" alt="logo_aquatech" class="logo" />
+        <p class="copyright">© 2025 Aquatech.</p>
+      </footer>
+    </div>
 
-  <!-- Scripts Swiper -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    const swiper = new Swiper(".mySwiper", {
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  </script>
+    <!-- Scripts Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper('.mySwiper', {
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        pagination: {
+          el: '.swiper-pagination',  // continua igual
+          clickable: true
+        }
+      });
+
+    </script>
 </body>
 
 </html>
