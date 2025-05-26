@@ -24,11 +24,9 @@ class MeuNavbar extends HTMLElement {
   background-color: white;
   font-family: 'Agrandir Regular', sans-serif !important;
   border: none;
+  font-size: 1rem;
 }
 
-.high-contrast .navbar {
-  background-color: #04192f !important;
-}
 
 .links {
   display: flex;
@@ -163,9 +161,6 @@ class MeuNavbar extends HTMLElement {
   position: relative;
 }
 
-.high-contrast .acessibility-option {
-  border: 1px solid #fff !important;
-}
 
 .acessibility-option i {
   margin-top: auto;
@@ -255,86 +250,6 @@ class MeuNavbar extends HTMLElement {
   color: #b40808 !important;
 }
 
-.high-contrast {
-  background-color: #04192f !important;
-  color: #fff !important;
-}
-
-.high-contrast a,
-.high-contrast .btn,
-.high-contrast button {
-  color: #fff !important;
-}
-
-.high-contrast .ajuda i {
-  color: #fff !important;
-}
-
-.high-contrast .ajuda {
-  text-decoration: #fff underline 1px !important;
-}
-
-.high-contrast .modal-content {
-  background-color: transparent !important;
-  color: #fff !important;
-  border: 1px solid #fff;
-}
-
-.high-contrast .modal-content button,
-.high-contrast .modal-content i,
-.high-contrast .modal-content p,
-.high-contrast .modal-content h2,
-.high-contrast .modal-content img {
-  color: #fff !important;
-  fill: #fff !important;
-}
-
-.high-contrast .modal-content i:hover {
-  text-shadow: 0 0 5px #ffffff88, 0 0 10px #fff, 0 0 15px #fff;
-}
-
-.high-contrast .modal-content img:hover {
-  filter: brightness(0) invert(1) drop-shadow(0 0 5px #ffffff88) drop-shadow(0 0 10px #ffffffaf) !important;
-}
-
-.high-contrast .navbar .logo {
-  filter: brightness(0) invert(1);
-}
-
-.high-contrast .modal-content img {
-  filter: brightness(0) invert(1);
-}
-
-.high-contrast .modal-buttons button {
-  background-color: transparent !important;
-  color: #fff !important;
-  border: 1px solid #fff;
-}
-
-.high-contrast .modal-buttons .save-btn:hover {
-  background-color: #fff !important;
-  color: #04192f !important;
-  border: 1px solid #fff;
-  box-shadow: 0 0 8px #ffffff88, 0 0 12px #fff;
-}
-
-.high-contrast .modal-buttons .cancel-btn:hover {
-  background-color: transparent !important;
-  color: #ff4b4b !important;
-  /* ou mantenha o #b40808 que você usava */
-  border: 1px solid #ff4b4b;
-  box-shadow: none;
-}
-
-
-.high-contrast .font-size-controls button {
-  border: #fff solid 1px !important;
-}
-
-.high-contrast .font-size-controls button:hover {
-  background-color: #fff;
-  color: #000 !important;
-}
 
 .font-size-controls button {
   background-color: transparent;
@@ -402,7 +317,7 @@ class MeuNavbar extends HTMLElement {
     color: #000;
     font-size: 1.5rem;
     position: absolute;
-    top: 0.4em;
+    top: 0.1em;
     /* Define o ícone no topo */
     right: 1rem;
     /* Ajusta o botão de menu à direita */
@@ -500,19 +415,28 @@ class MeuNavbar extends HTMLElement {
 #modalAcessibilidade {
   display: none;
   position: fixed;
-  inset: 0;
+  inset: 0; /* Ocupa toda a viewport */
   justify-content: center;
   align-items: center;
-  z-index: 999;
+
+  z-index: 9999;
+  backdrop-filter: blur(3px); /* Agora vai pegar a tela toda */
+  background-color: rgba(0, 0, 0, 0.1); /* (opcional) escurece o fundo */
+  
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 #modalAcessibilidade.show {
   display: flex;
+  opacity: 1;
 }
+
+
 
  @font-face {
       font-family: 'Agrandir Regular';
-      src: url('../../fonts/agrandir-regular.otf') format('opentype');
+      src: url('../fonts/agrandir-regular.otf') format('opentype');
     }
 
     @font-face {
@@ -545,9 +469,9 @@ class MeuNavbar extends HTMLElement {
     <img src="../../imagens/logobl.png" alt="Logo Aquatech" class="logo-img">
   </div>
   <div class="links">
-    <a href="#">Sobre Nós</a>
-    <a href="#">Recursos</a>
-    <a href="#">Soluções</a>
+    <a href="../../html/aboutus.html">Sobre Nós</a>
+    <a href="../../html/calculadora.html">Recursos</a>
+    <a href="../../html/home.html">Soluções</a>
   </div>
   <div class="ajuda">
     <a href="#" class="abrir-modal" style="margin-right: -1.0rem !important;">
@@ -557,9 +481,10 @@ class MeuNavbar extends HTMLElement {
 </div>
 
 <!-- Botão Navbar Mobile -->
-<button class="navbar-toggler" type="button" onclick="toggleMenu()">
+<button class="navbar-toggler" type="button" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false">
   <i class="bi bi-list" id="menuIcon" style="font-size: 1.5rem; z-index: 9999 !important;"></i>
 </button>
+
 
 <!-- Modal Acessibilidade -->
 <div class="modal" id="modalAcessibilidade">
@@ -630,34 +555,53 @@ class MeuNavbar extends HTMLElement {
 
     // 2. Agora você precisa “adaptar” o seu JS para funcionar dentro do shadow root
 
-    // Exemplo: capturar elementos dentro do shadowRoot e adicionar eventos
-    const modal = this.shadowRoot.getElementById("modalAcessibilidade");
-    const abrirBotoes = this.shadowRoot.querySelectorAll(".abrir-modal");
-    const modalBlur = modal?.querySelector(".modal-blur");
+// Exemplo: capturar elementos dentro do shadowRoot e adicionar eventos
+const modal = this.shadowRoot.getElementById("modalAcessibilidade");
+const abrirBotoes = this.shadowRoot.querySelectorAll(".abrir-modal");
+const modalBlur = modal?.querySelector(".modal-blur");
+const fecharBotao = modal?.querySelector(".modal-close");
+const cancelarBotao = modal?.querySelector(".cancel-btn");
 
-    // Replicar seu JS original com as referências ajustadas para shadowRoot
-    abrirBotoes.forEach(botao => {
-      botao.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal.classList.add("show");
-        // ... Você pode replicar o resto da lógica adaptando as variáveis
-      });
-    });
+// Replicar seu JS original com as referências ajustadas para shadowRoot
+abrirBotoes.forEach(botao => {
+  botao.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal.classList.add("show");
+    // ... Você pode replicar o resto da lógica adaptando as variáveis
+  });
+});
 
-    // Como seu código usa funções globais (ex: toggleMenu), 
-    // você pode criar métodos na classe para isso e ajustar o HTML para chamar esses métodos, 
-    // ou adicionar listeners aqui no JS da classe
+// Fechar modal ao clicar no botão de fechar
+fecharBotao?.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.classList.remove("show");
+});
 
-    // Exemplo simples para toggleMenu:
-    const btnToggle = this.shadowRoot.querySelector(".navbar-toggler");
-    btnToggle.addEventListener("click", () => {
-      const menuLateral = this.shadowRoot.getElementById('menuLateral');
-      const menuIcon = this.shadowRoot.getElementById('menuIcon');
-      menuLateral.classList.toggle('open');
-      menuIcon.classList.toggle('open');
-    });
+// Fechar modal ao clicar fora (blur)
+modalBlur?.addEventListener("click", () => {
+  modal.classList.remove("show");
+});
 
-    // E assim por diante, você “recria” o comportamento do JS para o shadowRoot
+// Fechar modal ao clicar no botão Cancelar
+cancelarBotao?.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.classList.remove("show");
+});
+
+// Como seu código usa funções globais (ex: toggleMenu), 
+// você pode criar métodos na classe para isso e ajustar o HTML para chamar esses métodos, 
+// ou adicionar listeners aqui no JS da classe
+
+// Exemplo simples para toggleMenu:
+const btnToggle = this.shadowRoot.querySelector(".navbar-toggler");
+btnToggle.addEventListener("click", () => {
+  const menuLateral = this.shadowRoot.getElementById('menuLateral');
+  const menuIcon = this.shadowRoot.getElementById('menuIcon');
+  menuLateral.classList.toggle('open');
+  menuIcon.classList.toggle('open');
+});
+
+
 
     // Para o restante das funções que você quer manter idênticas, 
     // você pode transformar elas em métodos da classe ou mover para dentro do connectedCallback
@@ -665,3 +609,4 @@ class MeuNavbar extends HTMLElement {
 }
 
 customElements.define('meu-navbar', MeuNavbar);
+
